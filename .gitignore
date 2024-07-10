@@ -1,0 +1,26 @@
+# JetBrains
+.idea/
+*.iml
+
+# Environments
+.venv*
+venv*/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Other cache
+.cache
+**/.pytest_cache/
+
+# Logs
+*.log
+
+# pyenv, asdf
+.python-version
+.tool-versions
+
+# User-specific stuff
+# ...
