@@ -3,7 +3,7 @@ import os
 from selene import browser, have, command
 
 import tests
-from demoqa_tests.data.users import User
+from demoqa_tests.data.users import User, Gender, Hobby
 
 
 class RegistrationPage:
@@ -26,8 +26,8 @@ class RegistrationPage:
     def fill_user_email(self, value):
         browser.element('#userEmail').type(value)
 
-    def fill_gender(self, value):
-        browser.all('[name=gender]').element_by(have.value(value)).element('..').click()
+    def fill_gender(self, value: Gender):
+        browser.all('[name=gender]').element_by(have.value(value.value)).element('..').click()
 
     def fill_user_number(self, value):
         browser.element('#userNumber').type(value)
@@ -38,13 +38,13 @@ class RegistrationPage:
         browser.element('.react-datepicker__month-select').all('option')[value.month - 1].click()
         browser.element(f'.react-datepicker__day--0{value.day}:not(.react-datepicker__day--outside-month)').click()
 
-    def fill_subjects(self, values):
+    def fill_subjects(self, values: tuple[str, ...]):
         for value in values:
             browser.element('#subjectsInput').type(value).click().press_enter()
 
-    def fill_hobbies(self, values):
+    def fill_hobbies(self, values: tuple[Hobby, ...]):
         for value in values:
-            browser.all('[for^=hobbies-checkbox]').element_by(have.exact_text(value)).click()
+            browser.all('[for^=hobbies-checkbox]').element_by(have.exact_text(value.value)).click()
 
     def upload_picture(self, value):
         browser.element('#uploadPicture').send_keys(os.path.abspath(
@@ -72,11 +72,11 @@ class RegistrationPage:
         browser.element('.table').all('td').even.should(
             have.exact_texts(f'{user.first_name} {user.last_name}',
                              user.user_email,
-                             user.gender,
+                             user.gender.value,
                              user.user_number,
                              f'{user.date_of_birth.day} {user.date_of_birth.strftime("%B")},{user.date_of_birth.year}',
                              ', '.join(user.subjects),
-                             ', '.join(user.hobbies),
+                             ', '.join(list(map(lambda x: x.value, user.hobbies))),
                              user.picture,
                              user.current_address,
                              f'{user.state} {user.city}'
