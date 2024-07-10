@@ -1,5 +1,18 @@
 from dataclasses import dataclass
 from datetime import date
+from enum import Enum
+
+
+class Hobby(Enum):
+    sports = 'Sports'
+    reading = 'Reading'
+    music = 'Music'
+
+
+class Gender(Enum):
+    male = 'Male'
+    female = 'Female'
+    other = 'Other'
 
 
 @dataclass
@@ -7,11 +20,11 @@ class User:
     first_name: str
     last_name: str
     user_email: str
-    gender: str
+    gender: Gender
     user_number: str
     date_of_birth: date
     subjects: tuple[str, ...]
-    hobbies: tuple[str, ...]
+    hobbies: tuple[Hobby, ...]
     picture: str
     current_address: str
     state: str
@@ -22,11 +35,11 @@ vika = User(
     first_name='Viktoriia',
     last_name='Lav',
     user_email='newuser@gmail.com',
-    gender='Female',
+    gender=Gender.female,
     user_number='8800222334',
     date_of_birth=date(1993, 5, 17),
     subjects=('Chemistry',),
-    hobbies=('Sports', 'Reading'),
+    hobbies=(Hobby.sports, Hobby.reading),
     picture='photo.png',
     current_address='144 Broadway, suit 12',
     state='NCR',
