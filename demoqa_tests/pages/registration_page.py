@@ -42,16 +42,16 @@ class RegistrationPage:
         self.first_name.type(user.first_name)
         self.last_name.type(user.last_name)
         self.user_email.type(user.user_email)
-        self.gender.element_by(have.value(user.gender)).element('..').click()
+        self.gender.element_by(have.value(user.gender.value)).element('..').click()
         self.user_number.type(user.user_number)
 
         self.date_of_birth.send_keys(Keys.CONTROL, 'a').type(user.date_of_birth.strftime('%m.%d.%Y')).press_enter()
 
-        for value in user.subjects:
-            self.subjects.type(value).press_enter()
+        for subject in user.subjects:
+            self.subjects.type(subject).press_enter()
 
-        for value in user.hobbies:
-            self.hobbies.element_by(have.text(value)).click()
+        for hobby in user.hobbies:
+            self.hobbies.element_by(have.text(hobby.value)).click()
 
         self.current_address.set_value(user.current_address)
         self.menu_state.click()
@@ -67,11 +67,11 @@ class RegistrationPage:
         self.submitting_table_results.should(
             have.exact_texts(f'{user.first_name} {user.last_name}',
                              user.user_email,
-                             user.gender,
+                             user.gender.value,
                              user.user_number,
                              user.date_of_birth.strftime('%d %B,%Y'),
                              ', '.join(user.subjects),
-                             ', '.join(user.hobbies),
+                             ', '.join(list(map(lambda x: x.value, user.hobbies))),
                              user.picture,
                              user.current_address,
                              f'{user.state} {user.city}'
