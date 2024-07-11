@@ -1,10 +1,10 @@
-from demoqa_tests.pages.registration_page import RegistrationPage
+from demoqa_tests.pages.registration_steps import RegistrationSteps
 from demoqa_tests.data import users
 
 
 def test_demoqa_practice_form():
     # GIVEN
-    registration_page = RegistrationPage()
+    registration_page = RegistrationSteps()
     registration_page.open()
 
     # WHEN

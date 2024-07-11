@@ -5,7 +5,7 @@ from demoqa_tests import resource
 from demoqa_tests.data.users import User
 
 
-class RegistrationPage:
+class RegistrationSteps:
     def __init__(self):
         self.first_name = browser.element('#firstName')
         self.last_name = browser.element('#lastName')
