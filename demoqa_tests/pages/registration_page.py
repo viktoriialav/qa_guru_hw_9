@@ -74,7 +74,7 @@ class RegistrationPage:
                              user.user_email,
                              user.gender.value,
                              user.user_number,
-                             f'{user.date_of_birth.day} {user.date_of_birth.strftime("%B")},{user.date_of_birth.year}',
+                             user.date_of_birth.strftime('%d %B,%Y'),
                              ', '.join(user.subjects),
                              ', '.join(list(map(lambda x: x.value, user.hobbies))),
                              user.picture,
