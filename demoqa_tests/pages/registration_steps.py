@@ -18,13 +18,13 @@ class RegistrationSteps:
         self.subjects = browser.element('#subjectsInput')
         self.hobbies = browser.all('[for^=hobbies-checkbox]')
 
+        self.picture = browser.element('#uploadPicture')
+
         self.current_address = browser.element('#currentAddress')
         self.menu_state = browser.element('#state')
         self.all_states = browser.all('[id^=react-select][id*=option]')
         self.menu_city = browser.element('#city')
         self.all_cities = browser.all('[id^=react-select][id*=option]')
-
-        self.picture = browser.element('#uploadPicture')
 
         self.submit = browser.element('#submit')
 
@@ -53,12 +53,13 @@ class RegistrationSteps:
         for hobby in user.hobbies:
             self.hobbies.element_by(have.text(hobby.value)).click()
 
+        self.picture.send_keys(resource.path(user.picture))
+
         self.current_address.set_value(user.current_address)
         self.menu_state.click()
         self.all_states.element_by(have.exact_text(user.state)).click()
         self.menu_city.click()
         self.all_cities.element_by(have.exact_text(user.city)).click()
-        self.picture.send_keys(resource.path(user.picture))
 
         self.submit.click()
 
